@@ -19,6 +19,7 @@ public class Movimiento : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
     }
 
     void Update()

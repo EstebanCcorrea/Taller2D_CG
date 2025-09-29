@@ -42,5 +42,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3508006777
+    locked: 0
+  - name: World decorativos
+    uniqueID: 3806112529
+    locked: 0
+  - name: Player
+    uniqueID: 1348300705
+    locked: 0
+  - name: Foreground
+    uniqueID: 3861230921
+    locked: 0
   m_RenderingLayers:
   - Default
