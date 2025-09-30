@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 public class GameManager : MonoBehaviour
 
 {
@@ -12,6 +13,11 @@ public class GameManager : MonoBehaviour
     // Vida del jugador
     public float vidaActual = 3f;
     public ScriptVida panelVida;
+
+    // Monedas recolectadas
+    public int Monedas { get; private set; } = 0;
+    public TMPro.TextMeshProUGUI textoMonedas;
+
 
     void Awake()
     {
@@ -41,5 +47,17 @@ public class GameManager : MonoBehaviour
         vidaActual = Mathf.Clamp(vidaActual + cantidad, 0f, 3f);
         panelVida.ActualizarVida(vidaActual);
     }
+
+    public void SumarMonedas(int cantidad)
+    { 
+        Monedas += cantidad;
+
+        if (textoMonedas != null)
+        {
+            textoMonedas.text = Monedas.ToString();
+        }
+    }
 }
+
+
 
