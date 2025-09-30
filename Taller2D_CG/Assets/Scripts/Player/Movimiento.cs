@@ -54,4 +54,12 @@ public class Movimiento : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(groundCheck.position, groundBoxSize);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.CompareTag("Item"))
+        {
+            Destroy(collision.gameObject);
+        }
+    }
 }
