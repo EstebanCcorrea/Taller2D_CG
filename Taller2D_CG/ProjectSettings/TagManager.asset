@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Floor
   - Item
+  - Gema
+  - Zafiro
+  - Banana
+  - Blink
   layers:
   - Default
   - TransparentFX

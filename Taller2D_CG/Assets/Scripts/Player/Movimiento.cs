@@ -57,7 +57,7 @@ public class Movimiento : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Item"))
+        if (collision.transform.CompareTag("Gema"))
         {
             Destroy(collision.gameObject);
         }
