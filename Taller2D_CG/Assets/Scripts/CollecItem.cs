@@ -1,60 +1,45 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
-[SerializeField]
 public class CollecItem : MonoBehaviour
 {
-    private int Gema;
-    private int Zafiro;
-    private int Blink;
-
+    private int Gema = 0;
+    private int Zafiro = 0;
+    private int Blink = 0;
 
     public TMP_Text textGema;
     public TMP_Text textZafiro;
     public TMP_Text textBlink;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Gema = 0;
-        Zafiro = 0;
-        Blink = 0;
+        UpdateUI();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddItem(string type)
     {
-        
+        switch (type)
+        {
+            case "Gema":
+                Gema++;
+                Debug.Log("Gemas: " + Gema);
+                break;
+            case "Zafiro":
+                Zafiro++;
+                Debug.Log("Zafiros: " + Zafiro);
+                break;
+            case "Blink":
+                Blink++;
+                Debug.Log("Blinks: " + Blink);
+                break;
+        }
+        UpdateUI();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void UpdateUI()
     {
-        if (collision.transform.CompareTag("Gema"))
-        {
-            Destroy(collision.gameObject);
-            Gema++;
-            textGema.text = "x" + Gema;
-            Debug.Log("Gemas: " + Gema);
-            
-        }
-
-        if (collision.transform.CompareTag("Zafiro"))
-        {
-            Destroy(collision.gameObject);
-            Zafiro++;
-            textZafiro.text = "x" + Zafiro;
-            Debug.Log("Zafiros: " + Zafiro);
-        }
-
-        if (collision.transform.CompareTag("Blink"))
-        {
-            Destroy(collision.gameObject);
-            Blink++;
-            textBlink.text = "x" + Blink;
-            Debug.Log("Bananas: " + Blink);
-        }
-
+        if (textGema) textGema.text = "x" + Gema;
+        if (textZafiro) textZafiro.text = "x" + Zafiro;
+        if (textBlink) textBlink.text = "x" + Blink;
     }
-
 }

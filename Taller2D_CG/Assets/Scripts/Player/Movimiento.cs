@@ -55,11 +55,5 @@ public class Movimiento : MonoBehaviour
         Gizmos.DrawWireCube(groundCheck.position, groundBoxSize);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.transform.CompareTag("Gema"))
-        {
-            Destroy(collision.gameObject);
-        }
-    }
+   
 }
