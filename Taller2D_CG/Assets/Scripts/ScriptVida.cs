@@ -8,7 +8,7 @@ public class ScriptVida : MonoBehaviour
     public Sprite corazonMedio;
     public Sprite corazonVacio;
 
-    public float vidaMaxima = 3f;   
+    public float vidaMaxima = 4f;   
     public float vidaActual;
 
     void Start()
