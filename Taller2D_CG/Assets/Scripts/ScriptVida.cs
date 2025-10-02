@@ -3,14 +3,24 @@ using UnityEngine.UI;
 
 public class ScriptVida : MonoBehaviour
 {
- 
     public Image[] corazones;
     public Sprite corazonLleno;
     public Sprite corazonMedio;
     public Sprite corazonVacio;
 
-    public void ActualizarVida(float vidaActual)
+    public float vidaMaxima = 3f;   
+    public float vidaActual;
+
+    void Start()
     {
+        vidaActual = vidaMaxima;
+        ActualizarVida(vidaActual);
+    }
+
+    public void ActualizarVida(float nuevaVida)
+    {
+        vidaActual = nuevaVida;
+
         for (int i = 0; i < corazones.Length; i++)
         {
             if (vidaActual >= i + 1)
@@ -21,10 +31,12 @@ public class ScriptVida : MonoBehaviour
                 corazones[i].sprite = corazonVacio;
         }
     }
+
+    public void RecibirDaño(float daño)
+    {
+        vidaActual -= daño;
+        if (vidaActual < 0) vidaActual = 0;
+
+        ActualizarVida(vidaActual);
+    }
 }
-
-
-
-
-
-
