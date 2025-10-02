@@ -54,4 +54,6 @@ public class Movimiento : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(groundCheck.position, groundBoxSize);
     }
+
+   
 }

@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 3
   tags:
   - Floor
+  - Item
+  - Gema
+  - Zafiro
+  - Banana
+  - Blink
   layers:
   - Default
   - TransparentFX
@@ -39,11 +44,11 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Background
     uniqueID: 3508006777
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
   - name: World decorativos
     uniqueID: 3806112529
@@ -53,6 +58,9 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 3861230921
+    locked: 0
+  - name: New Layer 5
+    uniqueID: 3350003309
     locked: 0
   m_RenderingLayers:
   - Default
