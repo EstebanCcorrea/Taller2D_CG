@@ -14,7 +14,7 @@ public class LoaderScene : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // Cambia "NextScene" por el nombre de tu escena
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); 
         }
     }
 }
