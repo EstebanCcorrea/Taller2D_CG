@@ -1,16 +1,37 @@
 using UnityEngine;
+using TMPro;
 
-public class GameControllerScene2 : MonoBehaviour
+public class ControllerScene : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Header("UI Resumen")]
+    public GameObject panelResumen;   // Panel de resumen oculto en la escena
+    public TMP_Text itemsTotalText;   // Texto para mostrar total de ítems
+
+    private void Start()
     {
-        
+        if (panelResumen != null)
+            panelResumen.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.CompareTag("Player"))
+        {
+            MostrarResumen(collision.gameObject);
+        }
+    }
+
+    void MostrarResumen(GameObject player)
+    {
+        if (panelResumen != null)
+            panelResumen.SetActive(true);
+
+        // Mostrar total de ítems guardados en el GameManager
+        int totalItems = GameManager.Instance.GetTotalItems();
+        itemsTotalText.text = "Ítems obtenidos: " + totalItems;
+
+        // Congelar movimiento del player
+        Movimiento mov = player.GetComponent<Movimiento>();
+        if (mov != null) mov.enabled = false;
     }
 }
