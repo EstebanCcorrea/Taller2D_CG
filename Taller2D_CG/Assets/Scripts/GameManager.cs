@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     public float vidaActual = 3f;
     public ScriptVida panelVida;
 
+    public int Gema = 0;
+    public int Zafiro = 0;
+    public int Blink = 0;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -36,5 +40,21 @@ public class GameManager : MonoBehaviour
     {
         vidaActual = Mathf.Clamp(vidaActual + cantidad, 0f, 3f);
         panelVida.ActualizarVida(vidaActual);
+    }
+
+    public void AddItem(string type)
+    {
+        switch (type)
+        {
+            case "Gema":
+                Gema++;
+                break;
+            case "Zafiro":
+                Zafiro++;
+                break;
+            case "Blink":
+                Blink++;
+                break;
+        }
     }
 }

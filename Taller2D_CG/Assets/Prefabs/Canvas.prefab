@@ -1865,6 +1865,7 @@ GameObject:
   - component: {fileID: 2390951535345952175}
   - component: {fileID: 179201345490612420}
   - component: {fileID: 5633720552478982025}
+  - component: {fileID: 203176911062588054}
   m_Layer: 5
   m_Name: PanelScore
   m_TagString: Untagged
@@ -1935,6 +1936,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &203176911062588054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6320744212604088367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3908bd1f3b268041a33c48d05311604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textGema: {fileID: 5991469510088698612}
+  textZafiro: {fileID: 311815641168225326}
+  textBlink: {fileID: 1760177081402642876}
 --- !u!1 &7142171098342594970
 GameObject:
   m_ObjectHideFlags: 0
