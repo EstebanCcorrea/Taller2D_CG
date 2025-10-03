@@ -82657,6 +82657,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeea4601fe790bf49ad0af3b1ef778db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupClip: {fileID: 8300000, guid: de083af847098944c9192259f8fa4e58, type: 3}
+  pickupVolume: 1.161
+  sfxSource: {fileID: 0}
   vidaActual: 4
   panelVida: {fileID: 7875479566601850598}
   Gema: 0
@@ -92189,6 +92192,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 270153256652248888, guid: a5c2c3db9a002e24b80f99db0908ee62, type: 3}
+      propertyPath: loseLifeClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8e937ff53ef595c4e813408e5e9be810, type: 3}
     - target: {fileID: 1572042024126108593, guid: a5c2c3db9a002e24b80f99db0908ee62, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -92416,6 +92423,18 @@ PrefabInstance:
     - target: {fileID: 8131155133335049102, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826993222450456316, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+      propertyPath: jumpClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8879573825580c64fb06003ddf88d7f9, type: 3}
+    - target: {fileID: 8826993222450456316, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+      propertyPath: jumpVolume
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826993222450456316, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+      propertyPath: footstepVolume
+      value: 1.49
       objectReference: {fileID: 0}
     - target: {fileID: 8826993222450456316, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
       propertyPath: groundBoxSize.x

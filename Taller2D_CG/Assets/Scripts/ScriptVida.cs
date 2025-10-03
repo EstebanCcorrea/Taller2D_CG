@@ -3,10 +3,16 @@ using UnityEngine.UI;
 
 public class ScriptVida : MonoBehaviour
 {
+
     public Image[] corazones;
     public Sprite corazonLleno;
     public Sprite corazonMedio;
     public Sprite corazonVacio;
+
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip loseLifeClip;
+    [SerializeField, Range(0f, 2f)] private float loseLifeVolume = 1.2f;
+
 
     public float vidaMaxima = 4f;   
     public float vidaActual;
@@ -15,7 +21,17 @@ public class ScriptVida : MonoBehaviour
     {
         vidaActual = vidaMaxima;
         ActualizarVida(vidaActual);
+
+        if (sfxSource == null)
+        {
+            sfxSource = GetComponent<AudioSource>();
+            if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
+            sfxSource.playOnAwake = false;
+            sfxSource.loop = false;
+            sfxSource.spatialBlend = 0f; // 2D
+        }
     }
+
 
     public void ActualizarVida(float nuevaVida)
     {
@@ -34,9 +50,18 @@ public class ScriptVida : MonoBehaviour
 
     public void RecibirDaño(float daño)
     {
+
+        int beforeLives = Mathf.FloorToInt(vidaActual);
+
         vidaActual -= daño;
         if (vidaActual < 0) vidaActual = 0;
 
+        int afterLives = Mathf.FloorToInt(vidaActual);
+
+        if (afterLives < beforeLives && loseLifeClip != null && sfxSource != null)
+            sfxSource.PlayOneShot(loseLifeClip, loseLifeVolume);
+
         ActualizarVida(vidaActual);
     }
+
 }

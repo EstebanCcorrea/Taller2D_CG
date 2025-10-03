@@ -3,6 +3,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 
 {
+
+    [SerializeField] private AudioClip pickupClip;
+    [SerializeField, Range(0f, 2f)] private float pickupVolume = 1.1f;
+    [SerializeField] private AudioSource sfxSource;
+
     public static GameManager Instance { get; private set; }
 
     private float globalTime = 0f;
@@ -24,6 +29,18 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        if (sfxSource == null)
+        {
+            sfxSource = GetComponent<AudioSource>();
+            if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
+            sfxSource.playOnAwake = false;
+            sfxSource.loop = false;
+            sfxSource.spatialBlend = 0f; // 2D
+            sfxSource.volume = 1f;
+        }
+
+
     }
 
     void Start()
@@ -56,5 +73,9 @@ public class GameManager : MonoBehaviour
                 Blink++;
                 break;
         }
+
+        if (pickupClip != null && sfxSource != null)
+            sfxSource.PlayOneShot(pickupClip, pickupVolume);
+
     }
 }
