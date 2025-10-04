@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+      
     }
 
     //  NUEVO: guardar tiempo de cada escena

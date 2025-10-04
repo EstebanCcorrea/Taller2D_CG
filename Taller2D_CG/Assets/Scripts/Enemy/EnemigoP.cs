@@ -3,33 +3,31 @@ using UnityEngine.Rendering;
 
 public class EnemigoP : MonoBehaviour
 {
+    [Header("Movimiento")]
     public float velocidad = 2f;
     public Transform puntoIzquierda;
     public Transform puntoDerecha;
-    public float daño;
 
-    [Header("Ataque")]
-    public float rangoDeteccion = 3f;   // distancia para detectar al jugador
+    [Header("Combate")]
+    public float rangoDeteccion = 3f;
+    public float daño = 1f;
+    public float vida = 3f;
     public Transform player;
 
-
     private bool moviendoDerecha = true;
+    private bool atacando = false;
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
-    private bool atacando = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-
     }
 
-
-
-    // Cuando el enemigo detecta al jugador, inicia el ataque, sino pues sigue patrullando
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (player == null) return;
 
@@ -38,19 +36,12 @@ public class EnemigoP : MonoBehaviour
         if (!atacando)
         {
             if (distancia <= rangoDeteccion)
-            {
-                
                 StartAttack();
-            }
             else
-            {
-                
                 Patrullar();
-            }
         }
     }
 
-    //metodo para patrullar entre dos puntos asignados en unity
     void Patrullar()
     {
         if (moviendoDerecha)
@@ -74,13 +65,11 @@ public class EnemigoP : MonoBehaviour
     {
         atacando = true;
         animator.SetBool("Run", false);
-        animator.SetTrigger("Roll"); 
+        animator.SetTrigger("Roll");
 
-        // efecto de empuje al atacar
         float direccion = moviendoDerecha ? 1f : -1f;
         rb.linearVelocity = new Vector2(velocidad * 3f * direccion, rb.linearVelocity.y);
 
-        // después de 1 segundo vuelve a su estado "normal"
         Invoke(nameof(FinAtaque), 1f);
     }
 
@@ -89,12 +78,31 @@ public class EnemigoP : MonoBehaviour
         atacando = false;
     }
 
-    // Si el enemigo colisiona con el jugador, le hace daño
+    public void RecibirDaño(float daño)
+    {
+        vida -= daño;
+        if (vida <= 0)
+        {
+            Muerte();
+        }
+    }
+
+    void Muerte()
+    {
+        animator.SetTrigger("Death");
+        rb.linearVelocity = Vector2.zero;
+        Destroy(gameObject, 0.5f);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerDamage>().TakeDamage(daño);
+            PlayerDamage pd = other.GetComponent<PlayerDamage>();
+            if (pd != null)
+            {
+                pd.TakeDamage(daño);
+            }
         }
     }
 }

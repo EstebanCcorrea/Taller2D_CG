@@ -7,31 +7,21 @@ public class Movimiento : MonoBehaviour
 
     [Header("Salto")]
     [SerializeField] private float jumpForce = 7f;
-    [SerializeField] private int saltosExtras = 1;   // 1 = doble salto, 2 = triple salto...
+    [SerializeField] private int saltosExtras = 1;
     private int saltosRestantes;
-    private bool salto;                              // buffer del input
+    private bool salto;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Vector2 groundBoxSize = new Vector2(0.5f, 0.1f);
     [SerializeField] private LayerMask groundLayer;
 
-    [Header("SFX")]
-    [SerializeField] private AudioSource sfxSource;        
-    [SerializeField] private AudioClip[] footstepClips;    
-    [SerializeField] private float stepInterval = 0.35f;   
-    [SerializeField] private float moveThreshold = 0.1f;   
-    [SerializeField] private float minPitch = 0.95f;      
-    [SerializeField] private float maxPitch = 1.05f;
-    [SerializeField, Range(0f, 2f)] private float footstepVolume = 1f;
-
- 
-    [SerializeField] private AudioClip jumpClip;
-    [SerializeField, Range(0f, 2f)] private float jumpVolume = 1f;
-
-
-
-    private float stepTimer;
+    [Header("Ataque / Proyectil")]
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private float projectileSpeed = 10f;
+    [SerializeField] private float fireCooldown = 0.3f;
+    private float nextFireTime;
 
     private Rigidbody2D rb2D;
     private Animator anim;
@@ -41,65 +31,32 @@ public class Movimiento : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
-        // Configurar AudioSource si no se asignó
-        if (sfxSource == null)
-        {
-            sfxSource = GetComponent<AudioSource>();
-            if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
-        }
-        sfxSource.playOnAwake = false;
-        sfxSource.loop = false;
-        sfxSource.spatialBlend = 0f; // 2D
     }
 
     private void Update()
     {
-        // --- Movimiento horizontal ---
+        // Movimiento
         float move = Input.GetAxis("Horizontal");
         rb2D.linearVelocity = new Vector2(move * speed, rb2D.linearVelocity.y);
 
         if (move != 0)
             transform.localScale = new Vector3(Mathf.Sign(move), 1, 1);
 
-        // --- Reset de saltos al tocar suelo ---
+        // Reset saltos al tocar suelo
         if (isGrounded)
-        {
             saltosRestantes = saltosExtras;
-        }
 
-        // --- Input de salto ---
+        // Input salto
         if (Input.GetButtonDown("Jump"))
-        {
-            salto = true; // se procesa en FixedUpdate
-        }
+            salto = true;
 
-        // --- Animaciones ---
+        // Ataque
+        HandleAttack();
+
+        // Animaciones
         anim.SetFloat("Speed", Mathf.Abs(move));
         anim.SetFloat("VerticalVelocity", rb2D.linearVelocity.y);
         anim.SetBool("IsGrounded", isGrounded);
-
-        bool movingHoriz = Mathf.Abs(move) > moveThreshold;
-        bool onGroundNow = isGrounded && Mathf.Abs(rb2D.linearVelocity.y) < 0.05f;
-
-        if (movingHoriz && onGroundNow)
-        {
-            // Acelera la cadencia un poco si te mueves más rápido
-            float speedFactor = Mathf.Clamp01(Mathf.Abs(move)); // 0..1
-            float interval = Mathf.Lerp(stepInterval * 1.1f, stepInterval * 0.8f, speedFactor);
-
-            stepTimer -= Time.deltaTime;
-            if (stepTimer <= 0f)
-            {
-                PlayFootstep();
-                stepTimer = interval;
-            }
-        }
-        else
-        {
-            // Resetea para que al volver a tocar suelo no “dispare” demasiado seguido
-            stepTimer = 0.05f;
-        }
     }
 
     private void FixedUpdate()
@@ -107,23 +64,20 @@ public class Movimiento : MonoBehaviour
         // Detectar suelo
         isGrounded = Physics2D.OverlapBox(groundCheck.position, groundBoxSize, 0f, groundLayer);
 
-        // Procesar salto
+        // Saltar
         if (salto)
         {
             if (isGrounded)
             {
                 DoJump();
-                anim.SetTrigger("Jump"); // Trigger animación
-                Debug.Log(">>> Trigger Jump lanzado");
+                anim.SetTrigger("Jump");
             }
             else if (saltosRestantes > 0)
             {
                 DoJump();
-                anim.SetTrigger("DoubleJump"); // Trigger animación
+                anim.SetTrigger("DoubleJump");
                 saltosRestantes--;
-                Debug.Log(">>> Trigger DoubleJump lanzado");
             }
-
             salto = false;
         }
     }
@@ -131,34 +85,49 @@ public class Movimiento : MonoBehaviour
     private void DoJump()
     {
         rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jumpForce);
-
-        if (jumpClip != null && sfxSource != null)
-            sfxSource.PlayOneShot(jumpClip, jumpVolume);
     }
 
-    private void PlayFootstep()
+    private void HandleAttack()
     {
-        if (footstepClips == null || footstepClips.Length == 0 || sfxSource == null) return;
+        if (Input.GetKeyDown(KeyCode.F) && Time.time >= nextFireTime)
+        {
+            LaunchProjectile();
+            nextFireTime = Time.time + fireCooldown;
+        }
+    }
 
-        int i = Random.Range(0, footstepClips.Length);
-        var clip = footstepClips[i];
-        if (clip == null) return;
+    private void LaunchProjectile()
+    {
+        if (projectilePrefab == null || firePoint == null) return;
 
-        sfxSource.pitch = Random.Range(minPitch, maxPitch);
-        sfxSource.PlayOneShot(clip, footstepVolume);
+        GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        Rigidbody2D rbProj = proj.GetComponent<Rigidbody2D>();
 
+        float dir = Mathf.Sign(transform.localScale.x);
+        rbProj.linearVelocity = new Vector2(dir * projectileSpeed, 0f);
 
+        // Evitar que el proyectil golpee al jugador
+        Collider2D playerCol = GetComponent<Collider2D>();
+        Collider2D projCol = proj.GetComponent<Collider2D>();
+        if (playerCol && projCol) Physics2D.IgnoreCollision(playerCol, projCol);
 
-
+        // Voltear sprite según dirección
+        Vector3 scale = proj.transform.localScale;
+        proj.transform.localScale = new Vector3(dir > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x), scale.y, scale.z);
     }
 
     private void OnDrawGizmosSelected()
     {
-        if (groundCheck == null) return;
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireCube(groundCheck.position, groundBoxSize);
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireCube(groundCheck.position, groundBoxSize);
+        }
+
+        if (firePoint != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(firePoint.position, 0.08f);
+        }
     }
-
-
-
 }
