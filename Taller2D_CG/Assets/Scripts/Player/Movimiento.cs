@@ -11,6 +11,26 @@ public class Movimiento : MonoBehaviour
     private int saltosRestantes;
     private bool salto;
 
+
+    [SerializeField] private AudioClip jumpClip;
+    [SerializeField, Range(0f, 2f)] private float jumpVolume = 1f;
+
+
+    private bool wasGrounded;
+
+
+    [Header("SFX")]
+    [SerializeField] private AudioSource sfxSource; 
+    [SerializeField] private AudioClip[] footstepClips; 
+    [SerializeField] private float stepInterval = 0.35f;
+    [SerializeField] private float moveThreshold = 0.1f; 
+    [SerializeField] private float minPitch = 0.95f;
+    [SerializeField] private float maxPitch = 1.05f;
+    [SerializeField, Range(0f, 2f)] private float footstepVolume = 1f;
+
+    private float stepTimer;
+
+
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Vector2 groundBoxSize = new Vector2(0.5f, 0.1f);
@@ -31,6 +51,17 @@ public class Movimiento : MonoBehaviour
     {
         rb2D = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+
+        if (sfxSource == null)
+        {
+            sfxSource = GetComponent<AudioSource>();
+            if (sfxSource == null) sfxSource = gameObject.AddComponent<AudioSource>();
+        }
+        sfxSource.playOnAwake = false;
+        sfxSource.loop = false;
+        sfxSource.spatialBlend = 0f; 
+
+
     }
 
     private void Update()
@@ -57,6 +88,33 @@ public class Movimiento : MonoBehaviour
         anim.SetFloat("Speed", Mathf.Abs(move));
         anim.SetFloat("VerticalVelocity", rb2D.linearVelocity.y);
         anim.SetBool("IsGrounded", isGrounded);
+
+
+        float vx = rb2D.linearVelocity.x;
+        bool movingHoriz = Mathf.Abs(vx) > moveThreshold;
+        bool onGroundNow = isGrounded; 
+
+        if (movingHoriz && onGroundNow)
+        {
+            float speedFactor = Mathf.Clamp01(Mathf.Abs(vx) / speed);
+            float interval = Mathf.Lerp(stepInterval * 1.1f, stepInterval * 0.8f, speedFactor);
+
+            stepTimer -= Time.deltaTime;
+            if (stepTimer <= 0f)
+            {
+                PlayFootstep();
+                stepTimer = interval;
+            }
+        }
+        else
+        {
+            stepTimer = 0.05f; 
+        }
+
+
+
+
+
     }
 
     private void FixedUpdate()
@@ -85,7 +143,11 @@ public class Movimiento : MonoBehaviour
     private void DoJump()
     {
         rb2D.linearVelocity = new Vector2(rb2D.linearVelocity.x, jumpForce);
+
+        if (jumpClip != null && sfxSource != null)
+            sfxSource.PlayOneShot(jumpClip, jumpVolume);
     }
+
 
     private void HandleAttack()
     {
@@ -130,4 +192,20 @@ public class Movimiento : MonoBehaviour
             Gizmos.DrawWireSphere(firePoint.position, 0.08f);
         }
     }
+
+    private void PlayFootstep()
+    {
+        if (sfxSource == null || footstepClips == null || footstepClips.Length == 0) return;
+
+        int i = Random.Range(0, footstepClips.Length);
+        var clip = footstepClips[i];
+        if (clip == null) return;
+
+        sfxSource.pitch = Random.Range(minPitch, maxPitch);
+        sfxSource.PlayOneShot(clip, footstepVolume);
+    }
+
+
+
+
 }
