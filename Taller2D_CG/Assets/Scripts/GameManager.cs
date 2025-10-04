@@ -1,9 +1,8 @@
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
-
 {
-
     [SerializeField] private AudioClip pickupClip;
     [SerializeField, Range(0f, 2f)] private float pickupVolume = 1.1f;
     [SerializeField] private AudioSource sfxSource;
@@ -19,6 +18,9 @@ public class GameManager : MonoBehaviour
     public int Gema = 0;
     public int Zafiro = 0;
     public int Blink = 0;
+
+    // 🔹 NUEVO: Lista para guardar los tiempos de las escenas
+    public List<float> tiemposEscenas = new List<float>();
 
     void Awake()
     {
@@ -39,8 +41,6 @@ public class GameManager : MonoBehaviour
             sfxSource.spatialBlend = 0f; // 2D
             sfxSource.volume = 1f;
         }
-
-
     }
 
     void Start()
@@ -76,6 +76,20 @@ public class GameManager : MonoBehaviour
 
         if (pickupClip != null && sfxSource != null)
             sfxSource.PlayOneShot(pickupClip, pickupVolume);
+    }
 
+    // 🔹 NUEVO: guardar tiempo de cada escena
+    public void GuardarTiempoEscena(float tiempo)
+    {
+        tiemposEscenas.Add(tiempo);
+        Debug.Log("Tiempo guardado de escena: " + tiempo);
+    }
+
+    // 🔹 NUEVO: obtener tiempo total
+    public float ObtenerTiempoTotal()
+    {
+        float total = 0f;
+        foreach (float t in tiemposEscenas) total += t;
+        return total;
     }
 }
