@@ -1,13 +1,8 @@
 using UnityEngine;
-<<<<<<< Updated upstream
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
-=======
 using TMPro;
 using UnityEngine.SceneManagement;
 
->>>>>>> Stashed changes
+
 
 public class GameManager : MonoBehaviour
 
@@ -29,22 +24,16 @@ public class GameManager : MonoBehaviour
     public int Zafiro = 0;
     public int Blink = 0;
 
-<<<<<<< Updated upstream
+
 
     [Header("UI Game Over")]
-    public GameObject PanelGameOver;
-    public TMP_Text TextGema;
-    public TMP_Text TextZafiro;
-    public TMP_Text TextBlink;
+   
 
-
-
-=======
     public GameObject panelGameOver;
     public TMP_Text textGema;
     public TMP_Text textZafiro;
     public TMP_Text textBlink;
->>>>>>> Stashed changes
+
 
     void Awake()
     {
@@ -71,14 +60,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-<<<<<<< Updated upstream
+
         panelVida.ActualizarVida(vidaActual);
-        if (PanelGameOver != null)
-            PanelGameOver.SetActive(false);
-=======
         if (panelGameOver != null)
             panelGameOver.SetActive(false);
->>>>>>> Stashed changes
+
+        if (panelGameOver != null)
+            panelGameOver.SetActive(false);
+
     }
 
     public void SumarTiempoGlobal(float tiempoEscena)
@@ -112,29 +101,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void GameOver()
-    {
-        Time.timeScale = 0f;
-        if (PanelGameOver != null)
-            PanelGameOver.SetActive(true);
-
-        Rigidbody2D[] allRigidbodies = FindObjectsByType<Rigidbody2D>(FindObjectsSortMode.None);
-        foreach (Rigidbody2D rb in allRigidbodies)
-        {
-            rb.linearVelocity = Vector2.zero;
-            rb.simulated = false; // congela la física
-
-            TextGema.text = "Gemas: " + Gema;
-            TextZafiro.text = "Zafiros: " + Zafiro;
-            TextBlink.text = "Blink: " + Blink;
-        }
-    }
-
-    public void ResetGame()
-    {
-        Time.timeScale = 1f; 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+  
 
     public void GameOver()
 
