@@ -114,6 +114,9 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        if (gameOverPanel != null)
+            Gema = Zafiro = Blink = 0;
     }
 
     //  NUEVO: guardar tiempo de cada escena
