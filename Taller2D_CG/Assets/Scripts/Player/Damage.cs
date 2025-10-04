@@ -23,7 +23,15 @@ public class PlayerDamage : MonoBehaviour
         if (!invulnerable)
         {
             if (ScriptVida != null)
+            {
                 ScriptVida.RecibirDaño(daño);
+
+                // llamar al GameManager para actualizar la vida actual
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.vidaActual = ScriptVida.vidaActual;
+                }
+            }
 
             StartCoroutine(DamageEffect());
         }

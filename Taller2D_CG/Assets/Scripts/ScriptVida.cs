@@ -23,7 +23,15 @@ public class ScriptVida : MonoBehaviour
 
     void Start()
     {
-        vidaActual = vidaMaxima;
+        if (GameManager.Instance != null)
+        {
+            vidaActual = GameManager.Instance.vidaActual;
+        }
+        else
+        {
+            
+            vidaActual = vidaMaxima;
+        }
         ActualizarVida(vidaActual);
 
         if (sfxSource == null)
