@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+
+using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
+
+
 
 
 
@@ -27,6 +30,7 @@ public class GameManager : MonoBehaviour
 
 
 
+
     [Header("UI Game Over")]
    
 
@@ -37,6 +41,10 @@ public class GameManager : MonoBehaviour
 
 
     //  Lista para guardar los tiempos de las escenas
+    public List<float> tiemposEscenas = new List<float>();
+
+
+    // NUEVO: Lista para guardar los tiempos de las escenas
     public List<float> tiemposEscenas = new List<float>();
 
 
@@ -66,10 +74,12 @@ public class GameManager : MonoBehaviour
 
         panelVida.ActualizarVida(vidaActual);
 
+
         if (panelGameOver != null)
             panelGameOver.SetActive(false);
 
       
+
     }
 
     public void SumarTiempoGlobal(float tiempoEscena)
@@ -103,6 +113,7 @@ public class GameManager : MonoBehaviour
     }
 
 
+
   
 
     public void GameOver()
@@ -123,6 +134,21 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    //  NUEVO: guardar tiempo de cada escena
+    public void GuardarTiempoEscena(float tiempo)
+    {
+        tiemposEscenas.Add(tiempo);
+        Debug.Log("Tiempo guardado de escena: " + tiempo);
+    }
+
+    // NUEVO: obtener tiempo total
+    public float ObtenerTiempoTotal()
+    {
+        float total = 0f;
+        foreach (float t in tiemposEscenas) total += t;
+        return total;
+
     }
 
     //  guardar tiempo de cada escena

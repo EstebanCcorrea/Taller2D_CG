@@ -86270,10 +86270,14 @@ MonoBehaviour:
   Gema: 0
   Zafiro: 0
   Blink: 0
+
   panelGameOver: {fileID: 922221353}
   textGema: {fileID: 1746184905}
   textZafiro: {fileID: 161331210}
   textBlink: {fileID: 1616496307}
+
+  tiemposEscenas: []
+
 --- !u!1001 &647152711
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98321,11 +98325,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8259073207750934999, guid: e5752a4fa5aa331438cbe26edf3d5248, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.9060001
+      value: -13.542
       objectReference: {fileID: 0}
     - target: {fileID: 8259073207750934999, guid: e5752a4fa5aa331438cbe26edf3d5248, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.503
+      value: -11.855
       objectReference: {fileID: 0}
     - target: {fileID: 8259073207750934999, guid: e5752a4fa5aa331438cbe26edf3d5248, type: 3}
       propertyPath: m_LocalPosition.z

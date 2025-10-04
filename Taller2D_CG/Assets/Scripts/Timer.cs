@@ -22,7 +22,7 @@ public class Timer : MonoBehaviour
     {
         if (!isRunning)
         {
-            Debug.Log("⏱ Timer START");
+            Debug.Log("Timer START");
             isRunning = true;
             startTime = Time.time;
         }
@@ -32,15 +32,15 @@ public class Timer : MonoBehaviour
     {
         if (isRunning)
         {
-            Debug.Log("⏱ Timer STOP");
+            Debug.Log("Timer STOP");
             isRunning = false;
             stopTime = timerTime;
 
-            // ✅ Guardar el tiempo de esta escena en GameManager (en la lista)
+            
             GameManager.Instance.GuardarTiempoEscena(stopTime);
 
-            Debug.Log("⏱ Tiempo de esta escena: " + stopTime);
-            Debug.Log("⏱ Tiempo total acumulado: " + GameManager.Instance.ObtenerTiempoTotal());
+            Debug.Log("Tiempo de esta escena: " + stopTime);
+            Debug.Log("Tiempo total acumulado: " + GameManager.Instance.ObtenerTiempoTotal());
         }
     }
 
