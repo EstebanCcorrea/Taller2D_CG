@@ -57,12 +57,33 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
+    void OnEnable()
     {
-        panelVida.ActualizarVida(vidaActual);
+        // cuando se carga una nueva escena, llamar a OnSceneLoaded
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
+    void OnDisable()
+    {
+        
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // Esto es para llamar cada vez que se carga una nueva escena
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        panelVida = Object.FindFirstObjectByType<ScriptVida>();
+
+        if (panelVida != null)
+        {
+            panelVida.ActualizarVida(vidaActual);
+        }
+
+        
         if (gameOverPanel != null)
+        {
             gameOverPanel.SetActive(false);
+        }
     }
 
     public void SumarTiempoGlobal(float tiempoEscena)
@@ -132,3 +153,4 @@ public class GameManager : MonoBehaviour
         return total;
     }
 }
+
