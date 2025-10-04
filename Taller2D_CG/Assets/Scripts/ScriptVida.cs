@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,12 +10,16 @@ public class ScriptVida : MonoBehaviour
     public Sprite corazonMedio;
     public Sprite corazonVacio;
 
+<<<<<<< Updated upstream
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioClip loseLifeClip;
     [SerializeField, Range(0f, 2f)] private float loseLifeVolume = 1.2f;
 
 
     public float vidaMaxima = 4f;   
+=======
+    public float vidaMaxima = 4f;
+>>>>>>> Stashed changes
     public float vidaActual;
 
     void Start()
@@ -62,6 +67,12 @@ public class ScriptVida : MonoBehaviour
             sfxSource.PlayOneShot(loseLifeClip, loseLifeVolume);
 
         ActualizarVida(vidaActual);
+
+
+        if (vidaActual <= 0)
+        {
+            GameManager.Instance.GameOver();
+        }
     }
 
 }

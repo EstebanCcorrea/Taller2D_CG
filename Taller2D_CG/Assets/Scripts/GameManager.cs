@@ -1,7 +1,13 @@
 using UnityEngine;
+<<<<<<< Updated upstream
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+=======
+using TMPro;
+using UnityEngine.SceneManagement;
+
+>>>>>>> Stashed changes
 
 public class GameManager : MonoBehaviour
 
@@ -23,6 +29,7 @@ public class GameManager : MonoBehaviour
     public int Zafiro = 0;
     public int Blink = 0;
 
+<<<<<<< Updated upstream
 
     [Header("UI Game Over")]
     public GameObject PanelGameOver;
@@ -32,6 +39,12 @@ public class GameManager : MonoBehaviour
 
 
 
+=======
+    public GameObject panelGameOver;
+    public TMP_Text textGema;
+    public TMP_Text textZafiro;
+    public TMP_Text textBlink;
+>>>>>>> Stashed changes
 
     void Awake()
     {
@@ -58,9 +71,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+<<<<<<< Updated upstream
         panelVida.ActualizarVida(vidaActual);
         if (PanelGameOver != null)
             PanelGameOver.SetActive(false);
+=======
+        if (panelGameOver != null)
+            panelGameOver.SetActive(false);
+>>>>>>> Stashed changes
     }
 
     public void SumarTiempoGlobal(float tiempoEscena)
@@ -117,4 +135,25 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f; 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    public void GameOver()
+
+    {
+        Time.timeScale = 0f;
+
+        if (panelGameOver != null)
+        {
+           panelGameOver.SetActive(true);
+
+            if (textGema != null) textGema.text = "Gemas: " + Gema;
+            if (textZafiro != null) textZafiro.text = "Zafiros: " + Zafiro;
+            if (textBlink != null) textBlink.text = "Blinks: " + Blink;
+        }
+}
+    public void ReiniciarJuego()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
 }
