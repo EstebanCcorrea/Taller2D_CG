@@ -1,19 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    //#region sonidos
-    //[SerializeField]
-    //private AudioClip stop;
-    //[SerializeField]
-    //private AudioSource respuestaAudio;
-    ////Reloj objReloj;
-    //#endregion
-
+    [Header("Referencias UI - Timer")]
     public TextMeshProUGUI timerMinutes;
     public TextMeshProUGUI timerSeconds;
     public TextMeshProUGUI timerSeconds100;
@@ -23,14 +13,8 @@ public class Timer : MonoBehaviour
     private float timerTime;
     private bool isRunning = false;
 
-    public float StartTime { get => startTime; set => startTime = value; }
-    public float StopTime1 { get => stopTime; set => stopTime = value; }
-    public float TimerTime { get => timerTime; set => timerTime = value; }
-
-    // Use this for initialization
     void Start()
     {
-        //TimerReset();
         TimerStart();
     }
 
@@ -38,7 +22,7 @@ public class Timer : MonoBehaviour
     {
         if (!isRunning)
         {
-            print("START");
+            Debug.Log("⏱ Timer START");
             isRunning = true;
             startTime = Time.time;
         }
@@ -48,48 +32,40 @@ public class Timer : MonoBehaviour
     {
         if (isRunning)
         {
-            print("STOP");
+            Debug.Log("⏱ Timer STOP");
             isRunning = false;
             stopTime = timerTime;
-            Debug.Log(stopTime.ToString());
-            ///
-            //if (stopTime >= 30)
-            //{
-            //    respuestaAudio.clip = stop;
-            //    respuestaAudio.Play();
-            //}
 
+            // ✅ Guardar el tiempo de esta escena en GameManager (en la lista)
+            GameManager.Instance.GuardarTiempoEscena(stopTime);
+
+            Debug.Log("⏱ Tiempo de esta escena: " + stopTime);
+            Debug.Log("⏱ Tiempo total acumulado: " + GameManager.Instance.ObtenerTiempoTotal());
         }
     }
 
     public void TimerReset()
     {
-        print("RESET");
         stopTime = 0;
         isRunning = false;
-        timerMinutes.text = timerSeconds.text = timerSeconds100.text = "00";
+        if (timerMinutes != null) timerMinutes.text = "00";
+        if (timerSeconds != null) timerSeconds.text = "00";
+        if (timerSeconds100 != null) timerSeconds100.text = "00";
     }
 
-    public float ObtenerTiempoFinal()
-    {
-        return stopTime;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        timerTime = stopTime + (Time.time - startTime);
-        int minutesInt = (int)timerTime / 60;
-        int secondsInt = (int)timerTime % 60;
-        int seconds100Int = (int)(Mathf.Floor((timerTime - (secondsInt + minutesInt * 60)) * 100));
-
         if (isRunning)
         {
-            timerMinutes.text = (minutesInt < 10) ? "0" + minutesInt : minutesInt.ToString();
-            timerSeconds.text = (secondsInt < 10) ? "0" + secondsInt : secondsInt.ToString();
-            timerSeconds100.text = (seconds100Int < 10) ? "0" + seconds100Int : seconds100Int.ToString();
+            timerTime = stopTime + (Time.time - startTime);
+
+            int minutesInt = (int)timerTime / 60;
+            int secondsInt = (int)timerTime % 60;
+            int seconds100Int = (int)(Mathf.Floor((timerTime - (secondsInt + minutesInt * 60)) * 100));
+
+            if (timerMinutes != null) timerMinutes.text = (minutesInt < 10) ? "0" + minutesInt : minutesInt.ToString();
+            if (timerSeconds != null) timerSeconds.text = (secondsInt < 10) ? "0" + secondsInt : secondsInt.ToString();
+            if (timerSeconds100 != null) timerSeconds100.text = (seconds100Int < 10) ? "0" + seconds100Int : seconds100Int.ToString();
         }
     }
-
 }
-

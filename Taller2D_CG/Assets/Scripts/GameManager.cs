@@ -1,13 +1,14 @@
-using UnityEngine;
+﻿
+
 using TMPro;
 using UnityEngine.SceneManagement;
 
 
 
+
+
 public class GameManager : MonoBehaviour
-
 {
-
     [SerializeField] private AudioClip pickupClip;
     [SerializeField, Range(0f, 2f)] private float pickupVolume = 1.1f;
     [SerializeField] private AudioSource sfxSource;
@@ -35,6 +36,10 @@ public class GameManager : MonoBehaviour
     public TMP_Text textBlink;
 
 
+    //  Lista para guardar los tiempos de las escenas
+    public List<float> tiemposEscenas = new List<float>();
+
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -54,20 +59,17 @@ public class GameManager : MonoBehaviour
             sfxSource.spatialBlend = 0f; // 2D
             sfxSource.volume = 1f;
         }
-
-
     }
 
     void Start()
     {
 
         panelVida.ActualizarVida(vidaActual);
-        if (panelGameOver != null)
-            panelGameOver.SetActive(false);
 
         if (panelGameOver != null)
             panelGameOver.SetActive(false);
 
+      
     }
 
     public void SumarTiempoGlobal(float tiempoEscena)
@@ -98,8 +100,8 @@ public class GameManager : MonoBehaviour
 
         if (pickupClip != null && sfxSource != null)
             sfxSource.PlayOneShot(pickupClip, pickupVolume);
-
     }
+
 
   
 
@@ -121,6 +123,21 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    // 🔹 NUEVO: guardar tiempo de cada escena
+    public void GuardarTiempoEscena(float tiempo)
+    {
+        tiemposEscenas.Add(tiempo);
+        Debug.Log("Tiempo guardado de escena: " + tiempo);
+    }
+
+    // 🔹 NUEVO: obtener tiempo total
+    public float ObtenerTiempoTotal()
+    {
+        float total = 0f;
+        foreach (float t in tiemposEscenas) total += t;
+        return total;
+
     }
 
 }
