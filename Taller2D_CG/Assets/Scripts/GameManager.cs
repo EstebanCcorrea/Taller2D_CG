@@ -104,9 +104,9 @@ public class GameManager : MonoBehaviour
         {
             gameOverPanel.SetActive(true);
 
-            if (gemaText != null) gemaText.text = "Gemas: " + Gema;
-            if (zafiroText != null) zafiroText.text = "Zafiros: " + Zafiro;
-            if (blinkText != null) blinkText.text = "Blinks: " + Blink;
+            if (gemaText != null) gemaText.text = "x" + Gema;
+            if (zafiroText != null) zafiroText.text = "x" + Zafiro;
+            if (blinkText != null) blinkText.text = "x" + Blink;
         }
     }
     

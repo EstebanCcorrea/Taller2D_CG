@@ -1087,7 +1087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.05478841, g: 0, b: 0.1509434, a: 0.54901963}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.85490197}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1357,7 +1357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.05478841, g: 0, b: 0.1509434, a: 0.54901963}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7176471}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3477,6 +3477,11 @@ MonoBehaviour:
   Gema: 0
   Zafiro: 0
   Blink: 0
+  gameOverPanel: {fileID: 0}
+  gemaText: {fileID: 0}
+  zafiroText: {fileID: 0}
+  blinkText: {fileID: 0}
+  tiemposEscenas: []
 --- !u!4 &2007840561
 Transform:
   m_ObjectHideFlags: 0
