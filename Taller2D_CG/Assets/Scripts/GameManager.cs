@@ -1,12 +1,16 @@
+
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement;
+
+
+
+
+
 
 public class GameManager : MonoBehaviour
-
 {
-
     [SerializeField] private AudioClip pickupClip;
     [SerializeField, Range(0f, 2f)] private float pickupVolume = 1.1f;
     [SerializeField] private AudioSource sfxSource;
@@ -23,15 +27,14 @@ public class GameManager : MonoBehaviour
     public int Zafiro = 0;
     public int Blink = 0;
 
-
     [Header("UI Game Over")]
-    public GameObject PanelGameOver;
-    public TMP_Text TextGema;
-    public TMP_Text TextZafiro;
-    public TMP_Text TextBlink;
+    public GameObject gameOverPanel;
+    public TMP_Text gemaText;
+    public TMP_Text zafiroText;
+    public TMP_Text blinkText;
 
-
-
+    //  NUEVO: Lista para guardar los tiempos de las escenas
+    public List<float> tiemposEscenas = new List<float>();
 
     void Awake()
     {
@@ -52,15 +55,14 @@ public class GameManager : MonoBehaviour
             sfxSource.spatialBlend = 0f; // 2D
             sfxSource.volume = 1f;
         }
-
-
     }
 
     void Start()
     {
         panelVida.ActualizarVida(vidaActual);
-        if (PanelGameOver != null)
-            PanelGameOver.SetActive(false);
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
     }
 
     public void SumarTiempoGlobal(float tiempoEscena)
@@ -91,30 +93,41 @@ public class GameManager : MonoBehaviour
 
         if (pickupClip != null && sfxSource != null)
             sfxSource.PlayOneShot(pickupClip, pickupVolume);
-
     }
 
     public void GameOver()
+
     {
         Time.timeScale = 0f;
-        if (PanelGameOver != null)
-            PanelGameOver.SetActive(true);
 
-        Rigidbody2D[] allRigidbodies = FindObjectsByType<Rigidbody2D>(FindObjectsSortMode.None);
-        foreach (Rigidbody2D rb in allRigidbodies)
+        if (gameOverPanel != null)
         {
-            rb.linearVelocity = Vector2.zero;
-            rb.simulated = false; // congela la física
+            gameOverPanel.SetActive(true);
 
-            TextGema.text = "Gemas: " + Gema;
-            TextZafiro.text = "Zafiros: " + Zafiro;
-            TextBlink.text = "Blink: " + Blink;
+            if (gemaText != null) gemaText.text = "x" + Gema;
+            if (zafiroText != null) zafiroText.text = "x" + Zafiro;
+            if (blinkText != null) blinkText.text = "x" + Blink;
         }
     }
-
-    public void ResetGame()
+    
+    public void ReiniciarJuego()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    //  NUEVO: guardar tiempo de cada escena
+    public void GuardarTiempoEscena(float tiempo)
+    {
+        tiemposEscenas.Add(tiempo);
+        Debug.Log("Tiempo guardado de escena: " + tiempo);
+    }
+
+    // NUEVO: obtener tiempo total
+    public float ObtenerTiempoTotal()
+    {
+        float total = 0f;
+        foreach (float t in tiemposEscenas) total += t;
+        return total;
     }
 }
