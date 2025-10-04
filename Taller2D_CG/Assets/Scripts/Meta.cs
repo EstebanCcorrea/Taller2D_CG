@@ -29,7 +29,7 @@ public class Meta : MonoBehaviour
                 int segundos = Mathf.FloorToInt(total % 60f);
                 int miliseg = Mathf.FloorToInt((total * 100f) % 100f);
 
-                textoTiempoFinal.text = $"Tiempo total: {minutos:00}:{segundos:00}:{miliseg:00}";
+                textoTiempoFinal.text = $"{minutos:00}:{segundos:00}:{miliseg:00}";
             }
         }
     }

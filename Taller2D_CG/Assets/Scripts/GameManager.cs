@@ -1,5 +1,11 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine.SceneManagement;
+
+
+
+
 
 public class GameManager : MonoBehaviour
 {
@@ -19,8 +25,20 @@ public class GameManager : MonoBehaviour
     public int Zafiro = 0;
     public int Blink = 0;
 
-    // 🔹 NUEVO: Lista para guardar los tiempos de las escenas
+
+
+    [Header("UI Game Over")]
+   
+
+    public GameObject panelGameOver;
+    public TMP_Text textGema;
+    public TMP_Text textZafiro;
+    public TMP_Text textBlink;
+
+
+    //  Lista para guardar los tiempos de las escenas
     public List<float> tiemposEscenas = new List<float>();
+
 
     void Awake()
     {
@@ -45,7 +63,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
         panelVida.ActualizarVida(vidaActual);
+
+        if (panelGameOver != null)
+            panelGameOver.SetActive(false);
+
+      
     }
 
     public void SumarTiempoGlobal(float tiempoEscena)
@@ -78,18 +102,43 @@ public class GameManager : MonoBehaviour
             sfxSource.PlayOneShot(pickupClip, pickupVolume);
     }
 
-    // 🔹 NUEVO: guardar tiempo de cada escena
+
+  
+
+    public void GameOver()
+
+    {
+        Time.timeScale = 0f;
+
+        if (panelGameOver != null)
+        {
+           panelGameOver.SetActive(true);
+
+            if (textGema != null) textGema.text = "Gemas: " + Gema;
+            if (textZafiro != null) textZafiro.text = "Zafiros: " + Zafiro;
+            if (textBlink != null) textBlink.text = "Blinks: " + Blink;
+        }
+}
+    public void ReiniciarJuego()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    //  guardar tiempo de cada escena
     public void GuardarTiempoEscena(float tiempo)
     {
         tiemposEscenas.Add(tiempo);
         Debug.Log("Tiempo guardado de escena: " + tiempo);
     }
 
-    // 🔹 NUEVO: obtener tiempo total
+    // obtener tiempo total
     public float ObtenerTiempoTotal()
     {
         float total = 0f;
         foreach (float t in tiemposEscenas) total += t;
         return total;
+
     }
+
 }
