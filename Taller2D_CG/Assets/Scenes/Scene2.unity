@@ -5421,6 +5421,7 @@ GameObject:
   - component: {fileID: 1601687520}
   - component: {fileID: 1601687522}
   - component: {fileID: 1601687521}
+  - component: {fileID: 1601687523}
   m_Layer: 5
   m_Name: PanelFinal
   m_TagString: Untagged
@@ -5496,6 +5497,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1601687519}
   m_CullTransparentMesh: 1
+--- !u!114 &1601687523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601687519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3908bd1f3b268041a33c48d05311604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textGema: {fileID: 1765624035}
+  textZafiro: {fileID: 546358730}
+  textBlink: {fileID: 630097721}
 --- !u!1 &1660416659
 GameObject:
   m_ObjectHideFlags: 0
@@ -5883,6 +5899,7 @@ GameObject:
   - component: {fileID: 1913382300}
   - component: {fileID: 1913382303}
   - component: {fileID: 1913382304}
+  - component: {fileID: 1913382305}
   m_Layer: 0
   m_Name: Meta
   m_TagString: Untagged
@@ -6034,6 +6051,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   finalPanel: {fileID: 1601687519}
   tiempoTotalText: {fileID: 1428323252}
+--- !u!95 &1913382305
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913382299}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b8cb30429f1f71c4780577f7fdfcb509, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2011275454
 GameObject:
   m_ObjectHideFlags: 0

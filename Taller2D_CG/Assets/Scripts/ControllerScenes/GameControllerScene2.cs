@@ -25,7 +25,7 @@ public class GameControllerScene2 : MonoBehaviour
                 int minutos = (int)total / 60;
                 int segundos = (int)total % 60;
 
-                tiempoTotalText.text = $"Tiempo total: {minutos:D2}:{segundos:D2}";
+                tiempoTotalText.text = $"{minutos:D2}:{segundos:D2}";
             }
         }
     }
