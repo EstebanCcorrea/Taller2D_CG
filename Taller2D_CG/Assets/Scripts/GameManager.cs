@@ -9,7 +9,6 @@ using UnityEngine.SceneManagement;
 
 
 
-
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private AudioClip pickupClip;
@@ -28,25 +27,14 @@ public class GameManager : MonoBehaviour
     public int Zafiro = 0;
     public int Blink = 0;
 
-
-
-
     [Header("UI Game Over")]
-   
+    public GameObject gameOverPanel;
+    public TMP_Text gemaText;
+    public TMP_Text zafiroText;
+    public TMP_Text blinkText;
 
-    public GameObject panelGameOver;
-    public TMP_Text textGema;
-    public TMP_Text textZafiro;
-    public TMP_Text textBlink;
-
-
-    //  Lista para guardar los tiempos de las escenas
+    //  NUEVO: Lista para guardar los tiempos de las escenas
     public List<float> tiemposEscenas = new List<float>();
-
-
-    // NUEVO: Lista para guardar los tiempos de las escenas
-    public List<float> tiemposEscenas = new List<float>();
-
 
     void Awake()
     {
@@ -71,15 +59,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
         panelVida.ActualizarVida(vidaActual);
 
-
-        if (panelGameOver != null)
-            panelGameOver.SetActive(false);
-
-      
-
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
     }
 
     public void SumarTiempoGlobal(float tiempoEscena)
@@ -112,28 +95,26 @@ public class GameManager : MonoBehaviour
             sfxSource.PlayOneShot(pickupClip, pickupVolume);
     }
 
-
-
-  
-
     public void GameOver()
 
     {
         Time.timeScale = 0f;
 
-        if (panelGameOver != null)
+        if (gameOverPanel != null)
         {
-           panelGameOver.SetActive(true);
+            gameOverPanel.SetActive(true);
 
-            if (textGema != null) textGema.text = "Gemas: " + Gema;
-            if (textZafiro != null) textZafiro.text = "Zafiros: " + Zafiro;
-            if (textBlink != null) textBlink.text = "Blinks: " + Blink;
+            if (gemaText != null) gemaText.text = "Gemas: " + Gema;
+            if (zafiroText != null) zafiroText.text = "Zafiros: " + Zafiro;
+            if (blinkText != null) blinkText.text = "Blinks: " + Blink;
         }
-}
+    }
+    
     public void ReiniciarJuego()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     //  NUEVO: guardar tiempo de cada escena
     public void GuardarTiempoEscena(float tiempo)
@@ -148,23 +129,5 @@ public class GameManager : MonoBehaviour
         float total = 0f;
         foreach (float t in tiemposEscenas) total += t;
         return total;
-
     }
-
-    //  guardar tiempo de cada escena
-    public void GuardarTiempoEscena(float tiempo)
-    {
-        tiemposEscenas.Add(tiempo);
-        Debug.Log("Tiempo guardado de escena: " + tiempo);
-    }
-
-    // obtener tiempo total
-    public float ObtenerTiempoTotal()
-    {
-        float total = 0f;
-        foreach (float t in tiemposEscenas) total += t;
-        return total;
-
-    }
-
 }
