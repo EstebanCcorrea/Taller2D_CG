@@ -79,10 +79,17 @@ public class GameManager : MonoBehaviour
             panelVida.ActualizarVida(vidaActual);
         }
 
-        
-        if (gameOverPanel != null)
+        // Busca el panel de GameOver en todas las escenas
+        var goPanel = GameObject.FindWithTag("GameOver");
+        if (goPanel != null)
         {
+            gameOverPanel = goPanel;
             gameOverPanel.SetActive(false);
+
+            // GetComponentInChildren podemos encontrar los textos
+            gemaText = gameOverPanel.transform.Find("TextGema")?.GetComponent<TMP_Text>();
+            zafiroText = gameOverPanel.transform.Find("TextZafiro")?.GetComponent<TMP_Text>();
+            blinkText = gameOverPanel.transform.Find("TextBlink")?.GetComponent<TMP_Text>();
         }
     }
 
@@ -134,6 +141,14 @@ public class GameManager : MonoBehaviour
     public void ReiniciarJuego()
     {
         Time.timeScale = 1f;
+
+        // solo para que resetee al dar click en el boton de reiniciar
+        vidaActual = 3f;
+        Gema = 0;
+        Zafiro = 0;
+        Blink = 0;
+        globalTime = 0f;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
       
     }

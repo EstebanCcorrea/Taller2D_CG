@@ -3654,40 +3654,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2007840561}
-  - component: {fileID: 2007840560}
   - component: {fileID: 2007840562}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: MenuManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2007840560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2007840559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeea4601fe790bf49ad0af3b1ef778db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickupClip: {fileID: 8300000, guid: de083af847098944c9192259f8fa4e58, type: 3}
-  pickupVolume: 0.64
-  sfxSource: {fileID: 0}
-  vidaActual: 3
-  panelVida: {fileID: 0}
-  Gema: 0
-  Zafiro: 0
-  Blink: 0
-  gameOverPanel: {fileID: 0}
-  gemaText: {fileID: 0}
-  zafiroText: {fileID: 0}
-  blinkText: {fileID: 0}
-  tiemposEscenas: []
 --- !u!4 &2007840561
 Transform:
   m_ObjectHideFlags: 0

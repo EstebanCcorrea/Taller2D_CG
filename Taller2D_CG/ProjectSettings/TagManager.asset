@@ -12,6 +12,7 @@ TagManager:
   - Blink
   - Enemigo
   - Projectile
+  - GameOver
   layers:
   - Default
   - TransparentFX
