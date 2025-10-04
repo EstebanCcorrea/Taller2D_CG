@@ -86293,8 +86293,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeea4601fe790bf49ad0af3b1ef778db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupClip: {fileID: 0}
-  pickupVolume: 1.1
+  pickupClip: {fileID: 8300000, guid: de083af847098944c9192259f8fa4e58, type: 3}
+  pickupVolume: 0.762
   sfxSource: {fileID: 0}
   vidaActual: 4
   panelVida: {fileID: 7875479566601850598}
