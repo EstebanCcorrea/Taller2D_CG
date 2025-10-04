@@ -1,5 +1,5 @@
-﻿
-
+﻿using UnityEngine;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -123,15 +123,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
-    // 🔹 NUEVO: guardar tiempo de cada escena
+    //  guardar tiempo de cada escena
     public void GuardarTiempoEscena(float tiempo)
     {
         tiemposEscenas.Add(tiempo);
         Debug.Log("Tiempo guardado de escena: " + tiempo);
     }
 
-    // 🔹 NUEVO: obtener tiempo total
+    // obtener tiempo total
     public float ObtenerTiempoTotal()
     {
         float total = 0f;
