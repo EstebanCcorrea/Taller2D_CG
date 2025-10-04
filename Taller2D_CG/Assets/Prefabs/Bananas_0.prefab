@@ -104,6 +104,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 3
   damage: 1
+  shootClip: {fileID: 8300000, guid: 6d763328b2d32e5489ec472a7dbaf53b, type: 3}
+  shootVolume: 0.58
+  playOnSpawn: 1
+  pitchRange: {x: 0.98, y: 1.02}
 --- !u!50 &3913025645643864549
 Rigidbody2D:
   serializedVersion: 5
