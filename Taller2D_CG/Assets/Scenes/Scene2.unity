@@ -13794,14 +13794,47 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8826993222450456316, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 1852642898}
+    - target: {fileID: 8826993222450456316, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+      propertyPath: groundCheck
+      value: 
+      objectReference: {fileID: 849190944}
+    - target: {fileID: 8826993222450456316, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+      propertyPath: fireCooldown
+      value: 0.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826993222450456316, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
       propertyPath: saltosExtras
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8826993222450456316, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+      propertyPath: projectileSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826993222450456316, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 7801427888715792022, guid: 630af45901254e3409bfb68e0a61f2f0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6647427425346722620, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1852642898}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+--- !u!4 &849190944 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3349882729385529375, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+  m_PrefabInstance: {fileID: 849190943}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &849190945 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6647427425346722620, guid: 4c8f0c6913f345c4691cf538cdc0f6df, type: 3}
+  m_PrefabInstance: {fileID: 849190943}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &856379020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23298,6 +23331,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1852642897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1852642898}
+  m_Layer: 0
+  m_Name: firepoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1852642898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852642897}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.597, y: -0.047, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 849190945}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1903231045
 GameObject:
   m_ObjectHideFlags: 0
